@@ -63,8 +63,12 @@ export async function renderManim(code: string, workDir: string): Promise<Render
   }
 
   const glob = new Bun.Glob('media/videos/**/*.mp4');
-  for await (const rel of glob.scan({ cwd: workDir })) {
-    return { ok: true, clipPath: path.join(workDir, rel) };
-  }
+  const found: string[] = [];
+  for await (const rel of glob.scan({ cwd: workDir })) found.push(rel);
+  const best =
+    found.find((f) => f.endsWith('clip.mp4')) ??
+    found.find((f) => !f.includes('partial_movie_files')) ??
+    found[0];
+  if (best) return { ok: true, clipPath: path.join(workDir, best) };
   return { ok: false, stderr: 'render reported success but produced no mp4' };
 }
