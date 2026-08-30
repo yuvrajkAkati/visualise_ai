@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.turbo/
+dist/
+storage/
+.env
+*.log
+__pycache__/
+media/

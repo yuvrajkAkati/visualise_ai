@@ -1,0 +1,16 @@
+{
+  "name": "api",
+  "private": true,
+  "scripts": {
+    "dev": "bun --env-file=../../.env --watch src/server.ts",
+    "start": "bun src/server.ts",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/database": "workspace:*",
+    "@repo/queue": "workspace:*",
+    "@repo/shared": "workspace:*",
+    "hono": "^4.6.0"
+  },
+  "devDependencies": { "@repo/typescript-config": "workspace:*" }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@repo/pipeline",
+  "version": "0.0.0",
+  "private": true,
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "check-types": "tsc --noEmit" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.120.0",
+    "@repo/database": "workspace:*"
+  },
+  "devDependencies": { "@repo/typescript-config": "workspace:*" }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "worker",
+  "private": true,
+  "scripts": {
+    "dev": "bun --env-file=../../.env --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "pipeline:test": "bun --env-file=../../.env scripts/pipeline.ts",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/database": "workspace:*",
+    "@repo/pipeline": "workspace:*",
+    "@repo/queue": "workspace:*",
+    "bullmq": "^5.20.0"
+  },
+  "devDependencies": { "@repo/typescript-config": "workspace:*" }
+}

@@ -1,0 +1,181 @@
+/* Palette grounded in Manim's own color constants:
+   BLUE_C #58C4DD · GREEN_C #83C167 · RED_C #FC6255 · softened YELLOW #F0D43A */
+:root {
+  --bg: #0b0e14;
+  --panel: #11161f;
+  --line: #1e2633;
+  --ink: #e8ecf4;
+  --muted: #8a93a6;
+  --blue: #58c4dd;
+  --green: #83c167;
+  --red: #fc6255;
+  --yellow: #f0d43a;
+  --grid: rgba(88, 196, 221, 0.055);
+  --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 780px; margin: 0 auto; padding: 48px 20px 96px; }
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+h1 {
+  font-family: var(--font-display), serif;
+  font-weight: 500;
+  font-size: clamp(30px, 6vw, 44px);
+  line-height: 1.15;
+  margin: 10px 0 8px;
+}
+
+h2 {
+  font-family: var(--font-display), serif;
+  font-weight: 500;
+  font-size: 20px;
+  margin: 40px 0 12px;
+}
+
+.sub { color: var(--muted); margin: 0 0 28px; }
+
+/* --- inputs --- */
+textarea, input[type='text'] {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font: inherit;
+  padding: 12px 14px;
+}
+textarea { min-height: 110px; resize: vertical; }
+textarea:focus-visible, input:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.btn {
+  background: var(--blue);
+  color: #06121a;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:disabled { opacity: 0.5; cursor: default; }
+.btn.ghost { background: transparent; color: var(--blue); border: 1px solid var(--line); }
+
+.row { display: flex; gap: 10px; margin-top: 12px; align-items: center; flex-wrap: wrap; }
+
+.error { color: var(--red); font-size: 14px; }
+
+/* --- the coordinate-plane timeline (signature element) --- */
+.plane {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  background-color: var(--panel);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.scene {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  padding: 16px 0;
+}
+.scene + .scene { border-top: 1px dashed var(--line); }
+
+.scene-rail {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  color: var(--muted);
+  padding-top: 3px;
+}
+
+.scene h3 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+.scene .desc { color: var(--muted); font-size: 13.5px; margin: 0 0 10px; }
+
+video { width: 100%; border-radius: 8px; border: 1px solid var(--line); background: #000; display: block; }
+
+/* --- status chips, mapped to Manim's palette --- */
+.chip {
+  display: inline-block;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.chip[data-s='GENERATING'], .chip[data-s='PLANNING'] { color: var(--yellow); border-color: var(--yellow); }
+.chip[data-s='RENDERING'], .chip[data-s='COMPILING'], .chip[data-s='QUEUED'] {
+  color: var(--blue); border-color: var(--blue);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.chip[data-s='RENDERED'], .chip[data-s='COMPLETED'] { color: var(--green); border-color: var(--green); }
+.chip[data-s='FAILED'] { color: var(--red); border-color: var(--red); }
+
+@keyframes pulse { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) {
+  .chip { animation: none !important; }
+}
+
+/* --- progress --- */
+.bar { height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; margin: 14px 0 24px; }
+.bar > div { height: 100%; background: var(--blue); transition: width 0.6s ease; }
+
+/* --- code disclosure --- */
+details { margin-top: 10px; }
+summary {
+  cursor: pointer;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+pre {
+  background: #0a0d12;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-x: auto;
+  font-family: var(--font-mono), monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+/* --- project list --- */
+.plist { list-style: none; margin: 0; padding: 0; }
+.plist li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
